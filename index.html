@@ -1,43 +1,24 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="theme-color" content="#07040f">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Pip Quest"><meta name="theme-color" content="#07040f"><meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22Super%20Pip%20Quest%22%2C%22short_name%22%3A%22Pip%20Quest%22%2C%22display%22%3A%22fullscreen%22%2C%22background_color%22%3A%22%2307040f%22%2C%22theme_color%22%3A%22%2307040f%22%7D">
 <title>Super Pip Quest</title>
-<style>html,body{margin:0;padding:0;height:100%;background:#07040f radial-gradient(ellipse at 50% 30%,#1c1238 0%,#07040f 70%);overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+<style>html,body{position:fixed;inset:0;margin:0;padding:0;width:100%;height:100%;height:100dvh;overflow:hidden;overscroll-behavior:none;background:#07040f;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%}
 body{font-family:system-ui,sans-serif}
-#cv{position:absolute;image-rendering:pixelated;image-rendering:crisp-edges;background:#000;box-shadow:0 0 0 2px #1a1030,0 8px 40px rgba(0,0,0,.6)}
-#touch{display:none;position:fixed;left:0;right:0;bottom:0;top:0;pointer-events:none;z-index:5}
+#cv{position:fixed;display:block;image-rendering:pixelated;image-rendering:crisp-edges;background:#000;touch-action:none}
+#sa{position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+#touch{display:none;position:fixed;inset:0;pointer-events:none;z-index:5}
 body.touch #touch{display:block}
-#dpad{position:absolute;left:calc(18px + env(safe-area-inset-left));bottom:calc(20px + env(safe-area-inset-bottom));width:132px;height:132px;border-radius:50%;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.16),rgba(255,255,255,.05));border:2px solid rgba(255,255,255,.22)}
-#dpad::before,#dpad::after{content:"";position:absolute;background:rgba(255,255,255,.28);border-radius:8px}
-#dpad::before{left:44px;right:44px;top:14px;bottom:14px}
-#dpad::after{top:44px;bottom:44px;left:14px;right:14px}
-#dpad i{position:absolute;width:0;height:0;border:9px solid transparent;z-index:2}
-#dpad .l{left:18px;top:57px;border-right:12px solid rgba(255,255,255,.75);border-left:0}
-#dpad .r{right:18px;top:57px;border-left:12px solid rgba(255,255,255,.75);border-right:0}
-#dpad .d{bottom:18px;left:57px;border-top:12px solid rgba(255,255,255,.75);border-bottom:0}
-#dpad .u{top:18px;left:57px;border-bottom:12px solid rgba(255,255,255,.35);border-top:0}
-#dpad[data-dir*=l] .l{border-right-color:#ffd84a}#dpad[data-dir*=r] .r{border-left-color:#ffd84a}#dpad[data-dir*=d] .d{border-top-color:#ffd84a}
-.btn{position:absolute;width:74px;height:74px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font:bold 26px/1 system-ui,sans-serif;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.35)}
-.btn small{font-size:10px;letter-spacing:1px;opacity:.85;margin-top:2px}
-#btnA{right:calc(18px + env(safe-area-inset-right));bottom:calc(52px + env(safe-area-inset-bottom));background:rgba(255,90,70,.55)}
-#btnB{right:calc(104px + env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom));background:rgba(70,130,255,.5)}
-.btn.on{transform:scale(.92);filter:brightness(1.4)}
-#btnP{position:absolute;right:calc(10px + env(safe-area-inset-right));top:calc(10px + env(safe-area-inset-top));width:40px;height:34px;border-radius:10px;background:rgba(0,0,0,.35);border:2px solid rgba(255,255,255,.3);color:#fff;font:bold 14px system-ui;display:flex;align-items:center;justify-content:center}
-body.portrait #btnP{top:auto;bottom:calc(170px + env(safe-area-inset-bottom));right:50%;margin-right:-20px}
-body:not(.portrait) #dpad,body:not(.portrait) .btn{opacity:.6}
-body.portrait #dpad{width:150px;height:150px;bottom:calc(30px + env(safe-area-inset-bottom))}
-body.portrait #dpad::before{left:51px;right:51px}body.portrait #dpad::after{top:51px;bottom:51px}
-body.portrait #dpad .l,body.portrait #dpad .r{top:66px}body.portrait #dpad .d,body.portrait #dpad .u{left:66px}
-body.portrait #btnA{width:84px;height:84px;bottom:calc(74px + env(safe-area-inset-bottom))}
-body.portrait #btnB{width:84px;height:84px;right:calc(112px + env(safe-area-inset-right));bottom:calc(26px + env(safe-area-inset-bottom))}
-#noscript{color:#fff;padding:20px}
-
-body:not(.inlevel) #dpad,body:not(.inlevel) .btn{display:none}
-body:not(.inlevel) #btnP{opacity:.0;pointer-events:none}</style></head>
+#btnB{position:absolute;right:calc(16px + env(safe-area-inset-right));bottom:calc(16px + env(safe-area-inset-bottom));width:54px;height:54px;border-radius:50%;box-sizing:border-box;display:flex;align-items:center;justify-content:center;font:bold 17px/1 system-ui,sans-serif;color:rgba(255,255,255,.5);background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.22);transition:background .08s,transform .08s}
+#btnB.on{background:rgba(120,170,255,.3);color:#fff;transform:scale(.92)}
+#btnP{position:absolute;right:calc(8px + env(safe-area-inset-right));top:calc(6px + env(safe-area-inset-top));width:36px;height:30px;border-radius:9px;box-sizing:border-box;background:rgba(0,0,0,.25);border:1.5px solid rgba(255,255,255,.25);color:rgba(255,255,255,.75);font:bold 13px system-ui;display:flex;align-items:center;justify-content:center}
+body:not(.inlevel) #btnB,body:not(.inlevel) #btnP{display:none}
+#noscript{color:#fff;padding:20px}</style></head>
 <body>
 <canvas id="cv" width="320" height="224"></canvas>
-<div id="touch"><div id="dpad"><i class="l"></i><i class="r"></i><i class="d"></i><i class="u"></i></div><div id="btnB" class="btn">B<small>RUN</small></div><div id="btnA" class="btn">A<small>JUMP</small></div><div id="btnP">II</div></div>
+<div id="sa"></div>
+<div id="touch"><div id="btnB">B</div><div id="btnP">II</div></div>
 <noscript><div id="noscript">Super Pip Quest needs JavaScript.</div></noscript>
 <script>
 "use strict";
@@ -1044,7 +1025,7 @@ class LevelScene {
     this.flagY = 3 * TS; this.fs = null; this.ps = null; this.inputLog = null;
   }
   musicName() { return this.p.star > 0 ? 'star' : this.bossOn ? 'boss' : this.area.name !== 'main' ? 'cave' : THEMES[this.def.theme].music; }
-  snapCam() { const W = this.app.W; const maxX = this.area.w * TS - W; let tx = this.p.x + this.p.w / 2 - W / 2; this.cam.x = maxX < 0 ? maxX / 2 : clamp(tx, this.cam.min, maxX); this.cam.look = 0; }
+  snapCam() { const W = this.app.W; const maxX = this.area.w * TS - W; let tx = this.p.x + this.p.w / 2 - W / 2; this.cam.x = maxX < 0 ? maxX / 2 : clamp(tx, Math.min(this.cam.min, maxX), maxX); this.cam.look = 0; }
   // ---------------- update ----------------
   update(inp) {
     this.frame++;
@@ -1072,8 +1053,8 @@ class LevelScene {
     const W = this.app.W, p = this.p, a = this.area; const maxX = a.w * TS - W;
     if (maxX < 0) { this.cam.x = maxX / 2; return; }
     const tl = clamp(p.vx * 20, -44, 44); this.cam.look += (tl - this.cam.look) * 0.035;
-    const tx = clamp(p.x + p.w / 2 - W / 2 + this.cam.look, this.cam.min, maxX);
-    this.cam.x += (tx - this.cam.x) * 0.2; this.cam.x = clamp(this.cam.x, this.cam.min, maxX);
+    const mn = Math.min(this.cam.min, maxX), tx = clamp(p.x + p.w / 2 - W / 2 + this.cam.look, mn, maxX);
+    this.cam.x += (tx - this.cam.x) * 0.2; this.cam.x = clamp(this.cam.x, mn, maxX);
     if (this.shake > 0) this.shake *= 0.88; if (this.shake < 0.3) this.shake = 0;
   }
   updatePlayer(inp) {
@@ -1376,12 +1357,47 @@ class LevelScene {
   }
   // ---------------- rendering ----------------
   render(ctx) {
-    const W = this.app.W, a = this.area, th = a.theme, Tl = ART.tiles[th.name], fr = this.frame;
-    if (this.state === 'intro') return this.renderIntro(ctx);
+    const W = this.app.W, H = this.app.H, oy = this.app.oy;
+    if (this.state === 'intro') { ctx.fillStyle = '#0c0818'; ctx.fillRect(0, 0, W, H); ctx.save(); ctx.translate(0, oy); this.renderIntro(ctx); ctx.restore(); this.renderHUD(ctx, W); return; }
+    ctx.save(); ctx.translate(0, oy); this.renderWorld(ctx); ctx.restore();
+    this.renderHUD(ctx, W); this.renderTouchHint(ctx, W, H);
+    const fade = a => { ctx.fillStyle = `rgba(0,0,0,${Math.min(1, a)})`; ctx.fillRect(0, 0, W, H); };
+    if (this.state === 'dying' && this.timer > 120) fade((this.timer - 120) / 50);
+    if (this.state === 'pipe' && this.ps && this.ps.dir === 'down' && this.ps.t > 30) fade((this.ps.t - 30) / 20);
+    ctx.save(); ctx.translate(0, oy);
+    if (this.fs && this.fs.ph !== 'slide' && this.fs.ph !== 'hop') { drawText(ctx, 'COURSE CLEAR!', W / 2, 60, '#ffd84a', { align: 'center', scale: 2, outline: '#3a1020' }); if (this.fs.ph === 'tally' || this.fs.ph === 'fire') drawText(ctx, 'TIME BONUS', W / 2, 84, '#fff', { align: 'center', outline: '#2a1040' }); }
+    if (this.state === 'victory') { drawText(ctx, 'THE SUN CROWN IS SAVED!', W / 2, 70, '#ffe24a', { align: 'center', outline: '#3a1020' }); }
+    ctx.restore();
+    if (this.fs && this.fs.ph === 'fire' && this.fs.t > 100) fade((this.fs.t - 100) / 20);
+  }
+  renderTouchHint(ctx, W, H) {
+    if (!this.app.touchMode || this.app.paused || this.G.cleared[this.idx] || this.frame > 520 || this.state !== 'play') return;
+    const a = Math.min(1, (520 - this.frame) / 60), y = H - this.app.safe.b - Math.ceil(84 / this.app.view.scale); ctx.globalAlpha = a * 0.85;
+    ctx.fillStyle = 'rgba(255,255,255,0.3)'; for (let yy = y - 44; yy < y + 16; yy += 4) ctx.fillRect(Math.round(W / 2), yy, 1, 2);
+    drawText(ctx, '< SLIDE: MOVE >', W / 4, y, '#fff', { align: 'center', outline: '#1a1030' }); drawText(ctx, 'TAP: JUMP', W * 3 / 4, y - 6, '#fff', { align: 'center', outline: '#1a1030' }); drawText(ctx, 'B: FIRE/RUN', W * 3 / 4, y + 5, '#b8d0ff', { align: 'center', outline: '#1a1030' });
+    ctx.globalAlpha = 1;
+  }
+  renderExt(ctx, cx, x0, x1, Tl, th) {
+    const a = this.area, oy = this.app.oy, H = this.app.H, below = H - oy - VH;
+    if (below > 0) {
+      for (let x = x0; x <= x1; x++) { const t = a.tiles[13 * a.w + x], sx = x * TS - cx;
+        if (SOLID[t]) for (let y = VH; y < VH + below; y += TS) ctx.drawImage(Tl.fill, sx, y);
+        else if (t === T.LAVA) for (let y = VH; y < VH + below; y += TS) ctx.drawImage(Tl.lava[(this.frame >> 4) & 3], sx, y);
+        else if (th.name !== 'sky') { ctx.fillStyle = '#0a0612'; ctx.fillRect(sx, VH, TS, below); } }
+      if (th.name === 'sky') { const gr = ctx.createLinearGradient(0, VH, 0, VH + Math.min(below, 260)); gr.addColorStop(0, 'rgba(120,140,190,0)'); gr.addColorStop(1, 'rgba(120,140,190,0.55)'); ctx.fillStyle = gr; ctx.fillRect(0, VH, this.app.W, below + 2); }
+      else { const gr = ctx.createLinearGradient(0, VH, 0, VH + Math.min(below, 260)); gr.addColorStop(0, 'rgba(6,3,14,0)'); gr.addColorStop(1, 'rgba(6,3,14,0.72)'); ctx.fillStyle = gr; ctx.fillRect(0, VH, this.app.W, below + 2); }
+    }
+    if (oy > 0 && th.ceiling) for (let x = x0; x <= x1; x++) if (a.tiles[x] === T.G) for (let y = -TS; y > -oy - TS; y -= TS) ctx.drawImage(Tl.fill, x * TS - cx, y);
+  }
+  renderWorld(ctx) {
+    const W = this.app.W, H = this.app.H, oy = this.app.oy, a = this.area, th = a.theme, Tl = ART.tiles[th.name], fr = this.frame;
     const sh = this.shake ? (Math.random() - 0.5) * this.shake * 2 : 0, shy = this.shake ? (Math.random() - 0.5) * this.shake * 2 : 0;
     const cx = Math.round(this.cam.x + sh);
-    drawBG(ctx, bgFor(a.def.bonus ? 'cave' : th.bg), this.cam.x, W, fr);
-    if (a.w * TS < W) { ctx.fillStyle = '#000'; ctx.fillRect(0, 0, -cx, VH); ctx.fillRect(a.w * TS - cx, 0, W, VH); }
+    const bgL = bgFor(a.def.bonus ? 'cave' : th.bg), sky = bgL[0].sky;
+    if (oy > 0) { const gr = ctx.createLinearGradient(0, -oy, 0, 0); gr.addColorStop(0, mix(sky[0], '#000000', th.name === 'castle' || th.name === 'cave' ? 0.3 : 0.18)); gr.addColorStop(1, sky[0]); ctx.fillStyle = gr; ctx.fillRect(0, -oy - 8, W, oy + 9); }
+    ctx.fillStyle = th.name === 'sky' ? '#c4c7cf' : sky[VH - 1]; ctx.fillRect(0, VH - 1, W, H);
+    drawBG(ctx, bgL, this.cam.x, W, fr);
+    if (a.w * TS < W) { const yA = -Math.ceil(oy / TS) * TS - TS; for (let x = -cx - TS; x > -TS * 2 - W; x -= TS) for (let y = yA; y < H - oy; y += TS) ctx.drawImage(Tl.fill, x, y); for (let x = a.w * TS - cx; x < W; x += TS) for (let y = yA; y < H - oy; y += TS) ctx.drawImage(Tl.fill, x, y); }
     ctx.save(); ctx.translate(0, Math.round(shy));
     // decor
     const D = ART.decor;
@@ -1410,6 +1426,7 @@ class LevelScene {
       }
       if (img) ctx.drawImage(img, x * TS - cx, y * TS - (bmap[k] || 0));
     }
+    this.renderExt(ctx, cx, x0, x1, Tl, th);
     // lava glow
     if (th.name === 'castle') { ctx.globalAlpha = 0.12 + Math.sin(fr * 0.05) * 0.04; ctx.fillStyle = '#ff5a1a'; ctx.fillRect(0, VH - 40, W, 40); ctx.globalAlpha = 1; }
     // platforms
@@ -1432,18 +1449,11 @@ class LevelScene {
     }
     for (const q of this.pops) drawText(ctx, q.s, q.x - cx, q.y, q.col, { align: 'center' });
     ctx.restore();
-    if (th.name === 'cave' || a.def.bonus) { /* vignette */ ctx.fillStyle = 'rgba(0,0,0,0.18)'; ctx.fillRect(0, 0, W, 6); ctx.fillRect(0, VH - 4, W, 4); }
     this.renderWeather(ctx, W);
-    this.renderHUD(ctx, W);
-    if (this.state === 'dying' && this.timer > 120) { ctx.fillStyle = `rgba(0,0,0,${Math.min(1, (this.timer - 120) / 50)})`; ctx.fillRect(0, 0, W, VH); }
-    if (this.state === 'pipe' && this.ps && this.ps.dir === 'down' && this.ps.t > 30) { ctx.fillStyle = `rgba(0,0,0,${Math.min(1, (this.ps.t - 30) / 20)})`; ctx.fillRect(0, 0, W, VH); }
-    if (this.fs && this.fs.ph !== 'slide' && this.fs.ph !== 'hop') { drawText(ctx, 'COURSE CLEAR!', W / 2, 60, '#ffd84a', { align: 'center', scale: 2, outline: '#3a1020' }); if (this.fs.ph === 'tally' || this.fs.ph === 'fire') drawText(ctx, 'TIME BONUS', W / 2, 84, '#fff', { align: 'center', outline: '#2a1040' }); }
-    if (this.state === 'victory') { drawText(ctx, 'THE SUN CROWN IS SAVED!', W / 2, 70, '#ffe24a', { align: 'center', outline: '#3a1020' }); }
-    if (this.fs && this.fs.ph === 'fire' && this.fs.t > 100) { ctx.fillStyle = `rgba(0,0,0,${Math.min(1, (this.fs.t - 100) / 20)})`; ctx.fillRect(0, 0, W, VH); }
   }
   renderWeather(ctx, W) {
     const th = this.area.theme.name, fr = this.frame;
-    if (th === 'snow') { ctx.fillStyle = '#ffffff'; for (let i = 0; i < 40; i++) { const x = ((i * 97 + fr * (0.3 + (i % 3) * 0.2) - this.cam.x * 0.6) % (W + 20) + W + 20) % (W + 20) - 10, y = ((i * 53 + fr * (0.6 + (i % 4) * 0.25)) % 240) - 10; ctx.fillRect(Math.round(x + Math.sin(fr * 0.03 + i) * 4), Math.round(y), i % 5 ? 1 : 2, i % 5 ? 1 : 2); } }
+    if (th === 'snow') { ctx.fillStyle = '#ffffff'; for (let i = 0, n = 40 + Math.round(this.app.H / 6); i < n; i++) { const x = ((i * 97 + fr * (0.3 + (i % 3) * 0.2) - this.cam.x * 0.6) % (W + 20) + W + 20) % (W + 20) - 10, y = ((i * 53 + fr * (0.6 + (i % 4) * 0.25)) % (this.app.H + 20)) - 10 - this.app.oy; ctx.fillRect(Math.round(x + Math.sin(fr * 0.03 + i) * 4), Math.round(y), i % 5 ? 1 : 2, i % 5 ? 1 : 2); } }
     else if (th === 'dusk') { for (let i = 0; i < 14; i++) { const x = ((i * 131 - this.cam.x * 0.4) % (W + 40) + W + 40) % (W + 40) - 20 + Math.sin(fr * 0.02 + i) * 10, y = 60 + (i * 37) % 120 + Math.sin(fr * 0.03 + i * 2) * 8; ctx.globalAlpha = 0.5 + 0.5 * Math.sin(fr * 0.08 + i); ctx.fillStyle = '#e8ff8a'; ctx.fillRect(Math.round(x), Math.round(y), 2, 2); } ctx.globalAlpha = 1; }
     else if (th === 'castle') { for (let i = 0; i < 10; i++) { const x = ((i * 89 - this.cam.x * 0.8 + fr * 0.2) % (W + 20) + W + 20) % (W + 20) - 10, y = VH - ((fr * (0.4 + (i % 3) * 0.2) + i * 41) % 200); ctx.globalAlpha = 0.7; ctx.fillStyle = i % 2 ? '#ff8a1a' : '#ffd84a'; ctx.fillRect(Math.round(x), Math.round(y), 1, 1); } ctx.globalAlpha = 1; }
   }
@@ -1496,23 +1506,22 @@ class LevelScene {
     ctx.drawImage(img, Math.round(p.x - 2 - cx), Math.round(p.y + p.h - s.h));
   }
   renderHUD(ctx, W) {
-    const G = this.G; ctx.fillStyle = 'rgba(16,10,30,0.35)'; ctx.fillRect(0, 0, W, 22);
-    const col = W / 4;
-    drawText(ctx, 'PIP', 8, 4, '#ffd84a'); drawText(ctx, String(G.score).padStart(7, '0'), 8, 13, '#fff');
-    ctx.drawImage(ART.coin[[0, 1, 2, 1][(this.frame >> 3) & 3]].r, col + 2, 6, 10, 10);
-    drawText(ctx, 'x' + String(G.coins).padStart(2, '0'), col + 14, 8, '#fff');
-    drawText(ctx, 'WORLD', col * 2 + 8, 4, '#ffd84a'); drawText(ctx, this.def.id, col * 2 + 14, 13, '#fff');
-    drawText(ctx, 'TIME', W - 8, 4, '#ffd84a', { align: 'right' }); drawText(ctx, this.area.def.bonus ? '---' : String(Math.max(0, this.time)).padStart(3, '0'), W - 8, 13, this.time <= 100 && (this.frame >> 4) & 1 ? '#ff6a5a' : '#fff', { align: 'right' });
-    if (this.boss && this.bossOn && !this.boss.dead) { const bw = 80, bx = W / 2 - bw / 2, by = 28; drawText(ctx, 'KING GRIMBOLT', W / 2, by - 1, '#ff9aa8', { align: 'center' }); ctx.fillStyle = '#1a0c1a'; ctx.fillRect(bx - 1, by + 8, bw + 2, 6); ctx.fillStyle = '#5a1a2a'; ctx.fillRect(bx, by + 9, bw, 4); ctx.fillStyle = '#ff3a5a'; ctx.fillRect(bx, by + 9, Math.max(0, bw * this.boss.hp / 12), 4); ctx.fillStyle = '#ffb0c0'; ctx.fillRect(bx, by + 9, Math.max(0, bw * this.boss.hp / 12), 1); }
+    const G = this.G, s = this.app.safe, t0 = s.t, L = s.l + 8, R = W - 8 - s.r - this.app.hudR; ctx.fillStyle = 'rgba(16,10,30,0.35)'; ctx.fillRect(0, 0, W, t0 + 22);
+    const col = (R - L) / 4;
+    drawText(ctx, 'PIP', L, t0 + 4, '#ffd84a'); drawText(ctx, String(G.score).padStart(7, '0'), L, t0 + 13, '#fff');
+    ctx.drawImage(ART.coin[[0, 1, 2, 1][(this.frame >> 3) & 3]].r, Math.round(L + col * 1.2), t0 + 6, 10, 10);
+    drawText(ctx, 'x' + String(G.coins).padStart(2, '0'), L + col * 1.2 + 12, t0 + 8, '#fff');
+    drawText(ctx, 'WORLD', L + col * 2.35, t0 + 4, '#ffd84a'); drawText(ctx, this.def.id, L + col * 2.35 + 6, t0 + 13, '#fff');
+    drawText(ctx, 'TIME', R, t0 + 4, '#ffd84a', { align: 'right' }); drawText(ctx, this.area.def.bonus ? '---' : String(Math.max(0, this.time)).padStart(3, '0'), R, t0 + 13, this.time <= 100 && (this.frame >> 4) & 1 ? '#ff6a5a' : '#fff', { align: 'right' });
+    if (this.boss && this.bossOn && !this.boss.dead) { const bw = 80, bx = W / 2 - bw / 2, by = t0 + 30; drawText(ctx, 'KING GRIMBOLT', W / 2, by - 1, '#ff9aa8', { align: 'center' }); ctx.fillStyle = '#1a0c1a'; ctx.fillRect(bx - 1, by + 8, bw + 2, 6); ctx.fillStyle = '#5a1a2a'; ctx.fillRect(bx, by + 9, bw, 4); ctx.fillStyle = '#ff3a5a'; ctx.fillRect(bx, by + 9, Math.max(0, bw * this.boss.hp / 12), 4); ctx.fillStyle = '#ffb0c0'; ctx.fillRect(bx, by + 9, Math.max(0, bw * this.boss.hp / 12), 1); }
   }
   renderIntro(ctx) {
-    const W = this.app.W; ctx.fillStyle = '#0c0818'; ctx.fillRect(0, 0, W, VH);
+    const W = this.app.W;
     for (let i = 0; i < 30; i++) { ctx.fillStyle = i % 3 ? '#3a2a5a' : '#6a5a9a'; ctx.fillRect((i * 73 + this.frame * 0.2) % W, (i * 41) % VH, 1, 1); }
     drawText(ctx, 'WORLD ' + this.def.id, W / 2, 70, '#ffd84a', { align: 'center', scale: 2, outline: '#3a1020' });
     drawText(ctx, this.def.name, W / 2, 96, '#fff', { align: 'center' });
     const s = ART.hero.pip.small.stand; ctx.drawImage(s.r, W / 2 - 26, 120); drawText(ctx, 'x ' + this.G.lives, W / 2 - 4, 126, '#fff');
     if (this.ckHit) drawText(ctx, 'FROM CHECKPOINT', W / 2, 160, '#2fd8c8', { align: 'center' });
-    this.renderHUD(ctx, W);
   }
 }
 
@@ -1544,11 +1553,14 @@ const Input = (() => {
 
 // ---------------- app ----------------
 const App = {
-  W: 320, scene: null, game: null, paused: false, pauseSel: 0, frame: 0, taps: [], perf: { steps: 0, stepMs: [], frameMs: [] }, touchMode: false,
+  W: 320, H: 224, oy: 0, safe: { t: 0, r: 0, b: 0, l: 0 }, hudR: 0, guide: false, scene: null, game: null, paused: false, pauseSel: 0, frame: 0, taps: [], perf: { steps: 0, stepMs: [], frameMs: [] }, touchMode: false,
   boot() {
     ART = buildArt(); LEVELS = buildLevels();
     this.cv = document.getElementById('cv'); this.ctx = this.cv.getContext('2d');
-    this.layout(); window.addEventListener('resize', () => this.layout()); window.addEventListener('orientationchange', () => setTimeout(() => this.layout(), 100));
+    this.layout(); const re = () => this.layout(); window.addEventListener('resize', re); window.addEventListener('orientationchange', () => { re(); setTimeout(re, 120); setTimeout(re, 450); });
+    if (window.visualViewport) visualViewport.addEventListener('resize', re); document.addEventListener('fullscreenchange', re); document.addEventListener('webkitfullscreenchange', re);
+    document.addEventListener('gesturestart', e => e.preventDefault()); document.addEventListener('dblclick', e => e.preventDefault());
+    try { this.guide = localStorage.getItem('spq_guide') === '1'; } catch (e) { }
     setupTouch(); this.toTitle();
     document.addEventListener('visibilitychange', () => { if (document.hidden && this.scene && this.scene.kind === 'level' && this.scene.state === 'play') this.pause(true); });
     let last = performance.now(), acc = 0; const STEP = 1000 / 60;
@@ -1565,21 +1577,25 @@ const App = {
     const vw = window.innerWidth, vh = window.innerHeight, dpr = window.devicePixelRatio || 1;
     const coarse = this.touchMode || (window.matchMedia && matchMedia('(pointer: coarse)').matches) || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
     this.touchMode = !!coarse; document.body.classList.toggle('touch', this.touchMode);
-    const portrait = vh > vw * 1.05; document.body.classList.toggle('portrait', portrait && this.touchMode);
-    let availH = vh; if (portrait && this.touchMode) availH = Math.min(vh * 0.58, vh - 230);
-    const aw = vw * dpr, ah = availH * dpr;
-    let scale = Math.floor(Math.min(aw / 256, ah / VH)); let frac = false;
-    if (scale < 1) { scale = Math.min(aw / 256, ah / VH); frac = true; }
-    const W = Math.max(256, Math.min(448, Math.floor(aw / scale) & ~1));
-    this.W = W; this.cv.width = W; this.cv.height = VH; this.ctx.imageSmoothingEnabled = false;
-    const cssW = W * scale / dpr, cssH = VH * scale / dpr;
-    this.cv.style.width = cssW + 'px'; this.cv.style.height = cssH + 'px';
-    const inLv = this.scene && this.scene.kind === 'level'; const top = portrait && this.touchMode && inLv ? Math.max(8, Math.min((vh - 300 - cssH) / 2, vh * 0.12)) : (vh - cssH) / 2;
-    this.cv.style.left = ((vw - cssW) / 2) + 'px'; this.cv.style.top = top + 'px';
-    this.view = { left: (vw - cssW) / 2, top, w: cssW, h: cssH, scale: cssW / W };
+    const portrait = vh > vw; document.body.classList.toggle('portrait', portrait);
+    // fill the whole viewport: integer pixel scale, the internal view widens/heightens to cover the screen (no bars)
+    const dW = vw * dpr, dH = vh * dpr;
+    const minW = portrait ? 224 : 240; // portrait: ~14 tiles across keeps Pip big enough while still showing plenty ahead
+    let scale = Math.floor(Math.min(dW / minW, dH / VH)); if (scale < 1) scale = Math.min(dW / minW, dH / VH);
+    scale = Math.max(scale, dW / 640, dH / 720); if (scale >= 1) scale = Math.max(1, Math.round(scale * 1000) / 1000);
+    const W = Math.ceil(dW / scale - 0.001), H = Math.ceil(dH / scale - 0.001);
+    this.W = W; this.H = H; const extra = H - VH; this.oy = extra <= 64 ? Math.max(0, extra) : Math.round(64 + (extra - 64) * 0.4);
+    if (this.cv.width !== W) this.cv.width = W; if (this.cv.height !== H) this.cv.height = H; this.ctx.imageSmoothingEnabled = false;
+    const cssW = W * scale / dpr, cssH = H * scale / dpr, left = (vw - cssW) / 2, top = (vh - cssH) / 2;
+    Object.assign(this.cv.style, { width: cssW + 'px', height: cssH + 'px', left: left + 'px', top: top + 'px' });
+    const k = cssW / W; this.view = { left, top, w: cssW, h: cssH, scale: k, oy: this.oy };
+    const sa = document.getElementById('sa'); let si = { t: 0, r: 0, b: 0, l: 0 };
+    if (sa) { const cs = getComputedStyle(sa), px = v => (parseFloat(v) || 0); si = { t: px(cs.paddingTop), r: px(cs.paddingRight), b: px(cs.paddingBottom), l: px(cs.paddingLeft) }; }
+    this.safe = { t: Math.ceil((si.t - top) / k), r: Math.ceil((si.r - left) / k), b: Math.ceil((si.b - top) / k), l: Math.ceil((si.l - left) / k) };
+    this.hudR = this.touchMode ? Math.ceil(46 / k) : 0;
     if (this.scene && this.scene.kind === 'level') this.scene.snapCam();
     if (this.scene && this.scene.onResize) this.scene.onResize();
-    layoutTouch(portrait && this.touchMode, top + cssH);
+    if (TC) setTimeout(() => TC.recalc(), 0);
   },
   step() {
     this.frame++; const inp = Input.poll(); this.inp = inp;
@@ -1593,14 +1609,31 @@ const App = {
   render() {
     const c = this.ctx; c.imageSmoothingEnabled = false;
     if (this.scene !== this.lastScene) { this.lastScene = this.scene; this.fade = 1; }
-    this.scene.render(c);
-    if (this.paused) this.renderPause(c);
-    if (this.fade > 0) { c.fillStyle = `rgba(7,4,15,${this.fade})`; c.fillRect(0, 0, this.W, VH); this.fade = Math.max(0, this.fade - 0.08); }
+    const W = this.W, H = this.H, oy = this.oy;
+    if (this.scene.kind === 'level') this.scene.render(c);
+    else { this.renderExt(c); c.save(); c.translate(0, oy); this.scene.render(c); c.restore(); }
+    if (this.paused) { c.fillStyle = 'rgba(8,4,20,0.72)'; c.fillRect(0, 0, W, H); c.save(); c.translate(0, oy); this.renderPause(c); c.restore(); }
+    if (this.guide && this.touchMode && TC && TC.stick && this.scene.kind === 'level' && !this.paused) this.renderGuide(c);
+    if (this.fade > 0) { c.fillStyle = `rgba(7,4,15,${this.fade})`; c.fillRect(0, 0, W, H); this.fade = Math.max(0, this.fade - 0.08); }
     const inl = this.scene.kind === 'level' && !this.paused; if (inl !== this._inl) { this._inl = inl; document.body.classList.toggle('inlevel', inl); }
-    const lk = this.scene.kind === 'level'; if (lk !== this._lk) { this._lk = lk; if (document.body.classList.contains('portrait')) this.layout(); }
+  },
+  renderGuide(c) {
+    const v = this.view, s = TC.stick, gx = x => (x - v.left) / v.scale, gy = y => (y - v.top) / v.scale;
+    const ax = gx(s.ax), ay = gy(s.ay), r = 44 / v.scale; c.globalAlpha = 0.16; c.strokeStyle = '#fff'; c.lineWidth = 1;
+    c.beginPath(); c.arc(ax, ay, r, 0, Math.PI * 2); c.stroke(); c.fillStyle = '#fff'; c.beginPath(); c.arc(gx(s.x), gy(s.y), 10 / v.scale + 3, 0, Math.PI * 2); c.fill(); c.globalAlpha = 1;
+  },
+  renderExt(c) {
+    // fills the areas above/below the 224px-tall design space for non-level scenes
+    const W = this.W, H = this.H, oy = this.oy, k = this.scene.kind, below = H - oy - VH; if (oy <= 0 && below <= 0) return;
+    let top = '#0c0818', bot = '#0c0818', ground = null, scroll = 0;
+    if (k === 'title') { top = bgFor('title')[0].sky[0]; ground = ART.tiles.grass; scroll = (this.scene.t * 0.6) % 16 | 0; }
+    else if (k === 'ending') { top = bgFor('dusk')[0].sky[0]; ground = ART.tiles.grass; }
+    else if (k === 'map') { top = '#2a6ad8'; bot = '#4ab0f0'; }
+    c.fillStyle = top; c.fillRect(0, 0, W, oy + 1); c.fillStyle = bot; c.fillRect(0, oy + VH - 1, W, below + 1);
+    if (ground && below > 0) { for (let x = -scroll; x < W; x += 16) for (let y = oy + VH; y < H; y += 16) c.drawImage(ground.fill, x, y); const gr = c.createLinearGradient(0, oy + VH, 0, oy + VH + Math.min(below, 260)); gr.addColorStop(0, 'rgba(6,3,14,0)'); gr.addColorStop(1, 'rgba(6,3,14,0.7)'); c.fillStyle = gr; c.fillRect(0, oy + VH, W, below); }
   },
   pause(on) { this.paused = on; this.pauseSel = 0; SND.sfx('pause'); if (on) { this.pmus = SND.current; SND.stop(); } else if (this.scene.kind === 'level') SND.play(this.scene.musicName()); },
-  pauseItems() { return ['RESUME', 'RESTART LEVEL', 'WORLD MAP', 'MUSIC: ' + (SND.st.music ? 'ON' : 'OFF'), 'SOUND FX: ' + (SND.st.sfx ? 'ON' : 'OFF')]; },
+  pauseItems() { const a = ['RESUME', 'RESTART LEVEL', 'WORLD MAP', 'MUSIC: ' + (SND.st.music ? 'ON' : 'OFF'), 'SOUND FX: ' + (SND.st.sfx ? 'ON' : 'OFF')]; if (this.touchMode) a.push('STICK GUIDE: ' + (this.guide ? 'ON' : 'OFF')); return a; },
   updatePause(inp, taps) {
     const items = this.pauseItems(); let choose = -1;
     if (inp.up) { this.pauseSel = (this.pauseSel + items.length - 1) % items.length; SND.sfx('move'); }
@@ -1612,15 +1645,16 @@ const App = {
     else if (choose === 2) { this.paused = false; SND.setTempo(1); this.toMap(); }
     else if (choose === 3) { SND.setMusic(!SND.st.music); SND.sfx('select'); }
     else if (choose === 4) { SND.setSfx(!SND.st.sfx); SND.sfx('select'); }
+    else if (choose === 5) { this.guide = !this.guide; try { localStorage.setItem('spq_guide', this.guide ? '1' : '0'); } catch (e) { } SND.sfx('select'); }
   },
   pauseY0() { return 84; },
   menuHit(t, n, y0) { for (let i = 0; i < n; i++) { const y = y0 + i * 16; if (t.y > y - 5 && t.y < y + 11 && Math.abs(t.x - this.W / 2) < 80) return i; } return -1; },
   renderPause(c) {
-    const W = this.W; c.fillStyle = 'rgba(8,4,20,0.72)'; c.fillRect(0, 0, W, VH);
-    panel(c, W / 2 - 84, 50, 168, 128);
+    const W = this.W, n = this.pauseItems().length, ph = 48 + n * 16;
+    panel(c, W / 2 - 84, 50, 168, ph);
     drawText(c, 'PAUSED', W / 2, 60, '#ffd84a', { align: 'center', outline: '#3a1020' });
     this.pauseItems().forEach((s, i) => { const y = this.pauseY0() + i * 16, sel = i === this.pauseSel; if (sel) { c.fillStyle = '#3a2a6a'; c.fillRect(W / 2 - 76, y - 4, 152, 15); drawText(c, '>', W / 2 - 70, y, '#ffd84a'); } drawText(c, s, W / 2, y, sel ? '#fff' : '#b8b0d8', { align: 'center' }); });
-    const sc = this.scene; drawText(c, 'LIVES ' + this.game.lives + '   ' + sc.def.name, W / 2, 190, '#8a80b0', { align: 'center' });
+    const sc = this.scene; drawText(c, 'LIVES ' + this.game.lives + '   ' + sc.def.name, W / 2, 50 + ph + 10, '#8a80b0', { align: 'center' });
   },
   // ---- flow
   toTitle() { this.paused = false; this.scene = new TitleScene(this); },
@@ -1642,10 +1676,12 @@ function panel(c, x, y, w, h) { x = Math.round(x); y = Math.round(y); c.fillStyl
 // ---------------- title ----------------
 class TitleScene {
   constructor(app) { this.app = app; this.kind = 'title'; this.t = 0; this.save = loadSave(); this.sel = this.save ? 1 : 0; this.confirm = false; this.pipX = -20; SND.play('title'); }
-  items() { if (this.confirm) return ['YES, START OVER', 'NO, GO BACK']; const a = ['NEW GAME']; if (this.save) a.push('CONTINUE'); a.push('MUSIC: ' + (SND.st.music ? 'ON' : 'OFF')); return a; }
-  y0() { return 128; }
+  items() { if (this.confirm) return ['YES, START OVER', 'NO, GO BACK']; const a = ['NEW GAME']; if (this.save) a.push('CONTINUE'); a.push('HOW TO PLAY', 'MUSIC: ' + (SND.st.music ? 'ON' : 'OFF')); return a; }
+  y0() { return this.items().length > 3 ? 118 : 126; }
   update(inp, taps) {
-    this.t++; const it = this.items(); let ch = -1;
+    this.t++;
+    if (this.help) { this.helpT++; if (this.helpT > 10 && (inp.jp || inp.sp || inp.bp || inp.rp || taps.length)) { this.help = false; SND.sfx('select'); } return; }
+    const it = this.items(); let ch = -1;
     if (inp.up) { this.sel = (this.sel + it.length - 1) % it.length; SND.sfx('move'); }
     if (inp.dp) { this.sel = (this.sel + 1) % it.length; SND.sfx('move'); }
     if (inp.jp || inp.sp) ch = this.sel;
@@ -1654,6 +1690,7 @@ class TitleScene {
     if (this.confirm) { if (ch === 0) this.app.newGame(); else { this.confirm = false; this.sel = 0; } return; }
     if (name === 'NEW GAME') { if (this.save && (this.save.unlocked > 0 || this.save.score > 0)) { this.confirm = true; this.sel = 1; } else this.app.newGame(); }
     else if (name === 'CONTINUE') this.app.continueGame();
+    else if (name === 'HOW TO PLAY') { this.help = true; this.helpT = 0; }
     else { SND.setMusic(!SND.st.music); if (SND.st.music) { SND.stop(); SND.play('title'); } }
   }
   render(c) {
@@ -1669,8 +1706,20 @@ class TitleScene {
     panel(c, W / 2 - 74, y0 - 9, 148, it.length * 16 + 4);
     it.forEach((s, i) => { const y = y0 + i * 16, sel = i === this.sel; if (sel) { c.fillStyle = '#4a3a8a'; c.fillRect(W / 2 - 70, y - 4, 140, 15); if ((t >> 4) & 1) drawText(c, '>', W / 2 - 64, y, '#ffd84a'); } drawText(c, s, W / 2, y, sel ? '#fff' : '#b8b0d8', { align: 'center' }); });
     if (this.confirm) drawText(c, 'ERASE SAVED PROGRESS?', W / 2, y0 - 20, '#ff9a8a', { align: 'center', outline: '#2a0a1a' });
-    const hint = this.app.touchMode ? 'TAP A CHOICE  -  A: JUMP  B: RUN/FIRE' : 'ARROWS MOVE  Z JUMP  X RUN/FIRE  ENTER PAUSE';
+    const hint = this.app.touchMode ? 'LEFT: MOVE   RIGHT: JUMP   B: FIRE' : 'ARROWS MOVE  Z JUMP  X RUN/FIRE  ENTER PAUSE';
     drawText(c, hint, W / 2, 212, '#fff', { align: 'center', outline: '#1a3a1a' });
+    if (this.help) this.renderHelp(c);
+  }
+  renderHelp(c) {
+    const W = this.app.W, oy = this.app.oy, H = this.app.H; c.fillStyle = 'rgba(8,4,20,0.8)'; c.fillRect(0, -oy, W, H);
+    const touchL = [['TOUCH  (NO VISIBLE PAD)', '#ffd84a'], ['LEFT HALF: THUMB DOWN ANYWHERE,', '#fff'], [' SLIDE TO WALK, SLIDE FAR = RUN', '#fff'], [' PULL DOWN = DUCK / ENTER PIPE', '#fff'], ['RIGHT HALF: TAP JUMP, HOLD HIGHER', '#fff'], ['B: HOLD = RUN, TAP = FIREBALL', '#fff'], [' (OR 2ND FINGER ON RIGHT HALF)', '#b8b0d8'], ['II TOP RIGHT: PAUSE', '#fff']];
+    const keyL = [['KEYBOARD', '#ffd84a'], ['ARROWS/WASD MOVE, DOWN DUCK/PIPE', '#fff'], ['Z/SPACE JUMP (HOLD = HIGHER)', '#fff'], ['X/SHIFT RUN+FIRE   ENTER PAUSE', '#fff'], ['PAD: STICK, A JUMP, B/X RUN+FIRE', '#b8b0d8']];
+    const goal = [['STOMP FOES, GRAB POWER-UPS,', '#7aff8a'], ['REACH THE FLAG, SAVE THE SUN CROWN!', '#7aff8a']];
+    const lines = [['HOW TO PLAY', '#fff'], ['', ''], ...(this.app.touchMode ? [...touchL, ['', ''], ...keyL] : [...keyL, ['', ''], ...touchL]), ['', ''], ...goal];
+    const lh = 10, h = lines.length * lh + 16, y0 = Math.max(-oy + 4, Math.round(VH / 2 - h / 2)), pw = Math.min(W - 8, 228);
+    panel(c, W / 2 - pw / 2, y0, pw, h);
+    lines.forEach(([s, col], i) => { if (s) drawText(c, s, i === 0 ? W / 2 : W / 2 - pw / 2 + 6, y0 + 8 + i * lh, col, { align: i === 0 ? 'center' : 'left' }); });
+    if ((this.t >> 4) & 1) drawText(c, this.app.touchMode ? 'TAP TO CLOSE' : 'PRESS JUMP', W / 2, y0 + h + 6, '#7aff8a', { align: 'center', outline: '#1a3a1a' });
   }
 }
 // ---------------- world map ----------------
@@ -1678,6 +1727,7 @@ const MAP_NODES = [[-112, 168], [-70, 122], [-22, 150], [22, 104], [66, 148], [1
 class MapScene {
   constructor(app, justCleared) { this.app = app; this.kind = 'map'; this.t = 0; const g = app.game; this.at = clamp(g.at || 0, 0, g.unlocked); this.pos = this.at; this.target = this.at; this.justCleared = justCleared; SND.play('title'); this.island = null; }
   onResize() { this.island = null; }
+  hudY() { return -this.app.oy + this.app.safe.t; }
   nodeXY(i) { const W = this.app.W, sx = Math.min(1.25, (W - 40) / 260); return [Math.round(W / 2 + MAP_NODES[i][0] * sx), MAP_NODES[i][1]]; }
   update(inp, taps) {
     this.t++; const g = this.app.game;
@@ -1687,7 +1737,7 @@ class MapScene {
     else if (inp.jp || inp.sp) this.enter();
     else if (inp.bp) this.app.toTitle();
     for (const t of taps) {
-      if (t.y < 26 && t.x < 60) { this.app.toTitle(); return; }
+      if (t.y < this.hudY() + 26 && t.y > this.hudY() - 30 && t.x < 70 + this.app.safe.l) { this.app.toTitle(); return; }
       for (let i = 0; i <= g.unlocked; i++) { const [x, y] = this.nodeXY(i); if (Math.abs(t.x - x) < 16 && Math.abs(t.y - y) < 16) { if (i === this.at) this.enter(); else { this.target = i; SND.sfx('move'); } return; } }
       if (t.y > 186) this.enter();
     }
@@ -1721,10 +1771,10 @@ class MapScene {
     const moving = this.pos !== this.target; const s = ART.hero.pip.small[moving ? ['walk1', 'walk2', 'walk3', 'walk2'][(t >> 2) & 3] : 'stand'];
     c.drawImage((this.target < this.pos ? s.l : s.r), Math.round(px - 8), Math.round(py - 4));
     // HUD
-    c.fillStyle = 'rgba(16,10,30,0.55)'; c.fillRect(0, 0, W, 22);
-    drawText(c, '< TITLE', 6, 8, '#b8b0d8');
-    drawText(c, 'PIP x ' + g.lives, W / 2, 8, '#fff', { align: 'center' });
-    drawText(c, String(g.score).padStart(7, '0'), W - 6, 8, '#ffd84a', { align: 'right' });
+    const hy = this.hudY(), sf = this.app.safe; c.fillStyle = 'rgba(16,10,30,0.55)'; c.fillRect(0, -this.app.oy, W, hy + this.app.oy + 22);
+    drawText(c, '< TITLE', 6 + sf.l, hy + 8, '#b8b0d8');
+    drawText(c, 'PIP x ' + g.lives, W / 2, hy + 8, '#fff', { align: 'center' });
+    drawText(c, String(g.score).padStart(7, '0'), W - 6 - sf.r, hy + 8, '#ffd84a', { align: 'right' });
     const L = LEVELS[this.at];
     panel(c, 8, 192, W - 16, 26);
     drawText(c, 'WORLD ' + L.id + '  ' + L.name, 16, 197, '#fff');
@@ -1768,46 +1818,57 @@ class EndingScene {
   }
 }
 // ---------------- touch controls ----------------
+// Invisible floating stick on the left half (anchors where the thumb lands), right half = jump (hold for height),
+// a 2nd finger on the right half or the small B button = run / fireball. Multi-touch via pointer events.
 let TC = null;
+const STK = { dead: 10, run: 44, duck: 22, follow: 64 };
 function setupTouch() {
-  TC = { dpad: document.getElementById('dpad'), a: document.getElementById('btnA'), b: document.getElementById('btnB'), pause: document.getElementById('btnP'), ptrs: new Map(), rects: {} };
-  const recalc = () => { for (const k of ['dpad', 'a', 'b', 'pause']) { const r = TC[k].getBoundingClientRect(); TC.rects[k] = r; } };
+  TC = { b: document.getElementById('btnB'), pause: document.getElementById('btnP'), ptrs: new Map(), rects: {}, stick: null, fsTried: false };
+  const recalc = () => { for (const k of ['b', 'pause']) TC.rects[k] = TC[k].getBoundingClientRect(); };
   TC.recalc = recalc;
-  const classify = (x, y) => {
-    const R = TC.rects; const inR = (r, pad) => r && r.width && x >= r.left - pad && x <= r.right + pad && y >= r.top - pad && y <= r.bottom + pad;
-    if (App.scene && App.scene.kind === 'level' && inR(R.pause, 8)) return { k: 'pause' };
-    if (App.scene && App.scene.kind === 'level' && !App.paused && App.touchMode) {
-      if (inR(R.dpad, 30)) { const cx = R.dpad.left + R.dpad.width / 2, cy = R.dpad.top + R.dpad.height / 2, dx = x - cx, dy = y - cy, rad = R.dpad.width / 2; return { k: 'dpad', l: dx < -rad * 0.22, r: dx > rad * 0.22, d: dy > rad * 0.35 && Math.abs(dy) > Math.abs(dx) * 0.6, u: dy < -rad * 0.45 && Math.abs(dy) > Math.abs(dx), run: Math.abs(dx) > rad * 0.82 }; }
-      const ac = R.a, bc = R.b; if (inR(ac, 18) || inR(bc, 18)) { const da = Math.hypot(x - (ac.left + ac.width / 2), y - (ac.top + ac.height / 2)), db = Math.hypot(x - (bc.left + bc.width / 2), y - (bc.top + bc.height / 2)); return { k: da < db ? 'a' : 'b' }; }
-    }
-    return null;
-  };
+  const inR = (r, x, y, pad) => r && r.width && x >= r.left - pad && x <= r.right + pad && y >= r.top - pad && y <= r.bottom + pad;
+  const inPlay = () => App.scene && App.scene.kind === 'level' && !App.paused && App.touchMode;
   const apply = () => {
-    const t = Input.touch; t.l = t.r = t.d = t.u = t.j = t.run = 0;
-    for (const c of TC.ptrs.values()) { if (!c) continue; if (c.k === 'dpad') { if (c.l) t.l = 1; if (c.r) t.r = 1; if (c.d) t.d = 1; if (c.run) t.run = 1; } else if (c.k === 'a') t.j = 1; else if (c.k === 'b') t.run = 1; }
-    TC.dpad.dataset.dir = (t.l ? 'l' : '') + (t.r ? 'r' : '') + (t.d ? 'd' : ''); TC.a.classList.toggle('on', !!t.j); TC.b.classList.toggle('on', [...TC.ptrs.values()].some(c => c && c.k === 'b'));
+    const t = Input.touch, wasD = t.d; t.l = t.r = t.d = t.u = t.j = t.run = 0; let bOn = false;
+    const s = TC.stick;
+    if (s) { const dx = s.x - s.ax, dy = s.y - s.ay; t.d = dy > STK.duck && dy > Math.abs(dx) * 0.9 ? 1 : 0; if (!t.d) { if (dx < -STK.dead) t.l = 1; else if (dx > STK.dead) t.r = 1; } if (Math.abs(dx) > STK.run && !t.d) t.run = 1; s.dir = (t.l ? 'l' : '') + (t.r ? 'r' : '') + (t.d ? 'd' : '') + (t.run ? '+' : ''); }
+    for (const c of TC.ptrs.values()) { if (!c) continue; if (c.k === 'jump') t.j = 1; else if (c.k === 'fire') t.run = 1; else if (c.k === 'b') { t.run = 1; bOn = true; } }
+    if (t.d && !wasD) Input.hit.d = 1;
+    TC.b.classList.toggle('on', bOn);
   };
-  const toGame = (x, y) => { const v = App.view; return { x: (x - v.left) / v.scale, y: (y - v.top) / v.scale }; };
+  TC.apply = apply;
+  const toGame = (x, y) => { const v = App.view; return { x: (x - v.left) / v.scale, y: (y - v.top) / v.scale - App.oy }; };
+  const tryFullscreen = () => {
+    if (TC.fsTried) return; if (navigator.userActivation && !navigator.userActivation.isActive) return; TC.fsTried = true;
+    const el = document.documentElement, rf = el.requestFullscreen || el.webkitRequestFullscreen;
+    if (!rf || document.fullscreenElement || document.webkitFullscreenElement) return; // iOS Safari: no API -> add-to-home-screen meta handles full screen
+    try { const p = rf.call(el, { navigationUI: 'hide' }); if (p && p.catch) p.catch(() => { }); } catch (e) { }
+  };
   window.addEventListener('pointerdown', e => {
-    SND.init(); if (e.pointerType === 'touch' && !App.touchMode) { App.touchMode = true; App.layout(); }
-    recalc(); const c = classify(e.clientX, e.clientY);
-    if (c && c.k === 'pause') { App.taps.push({ pause: true }); e.preventDefault(); return; }
-    if (c) { TC.ptrs.set(e.pointerId, c); apply(); if (c.k === 'a') Input.hit.j = 1; if (c.k === 'b') Input.hit.run = 1; e.preventDefault(); return; }
-    const g = toGame(e.clientX, e.clientY); App.taps.push(g); TC.ptrs.set(e.pointerId, null);
+    SND.init(); if (e.pointerType === 'touch') { if (!App.touchMode) { App.touchMode = true; App.layout(); } tryFullscreen(); }
+    recalc(); const x = e.clientX, y = e.clientY;
+    if (App.scene && App.scene.kind === 'level' && App.touchMode && inR(TC.rects.pause, x, y, 10)) { App.taps.push({ pause: true }); e.preventDefault(); return; }
+    if (inPlay()) {
+      let c;
+      if (inR(TC.rects.b, x, y, 14)) { c = { k: 'b' }; Input.hit.run = 1; }
+      else if (x < window.innerWidth / 2) { if (!TC.stick) { TC.stick = { id: e.pointerId, ax: x, ay: y, x, y, dir: '' }; c = { k: 'stick' }; } else c = { k: 'none' }; }
+      else { const jumping = [...TC.ptrs.values()].some(p => p && p.k === 'jump'); if (jumping) { c = { k: 'fire' }; Input.hit.run = 1; } else { c = { k: 'jump' }; Input.hit.j = 1; } }
+      TC.ptrs.set(e.pointerId, c); apply(); e.preventDefault(); return;
+    }
+    App.taps.push(toGame(x, y)); TC.ptrs.set(e.pointerId, null);
   }, { passive: false });
-  window.addEventListener('pointermove', e => { if (!TC.ptrs.has(e.pointerId)) return; const old = TC.ptrs.get(e.pointerId); if (!old) return; const c = classify(e.clientX, e.clientY); if (old.k === 'dpad' && (!c || c.k !== 'dpad')) { TC.ptrs.set(e.pointerId, { k: 'dpad', l: old.l, r: old.r, d: 0, run: old.run }); } else TC.ptrs.set(e.pointerId, c); apply(); e.preventDefault(); }, { passive: false });
-  const up = e => { TC.ptrs.delete(e.pointerId); apply(); };
+  window.addEventListener('pointermove', e => {
+    const s = TC.stick; if (!s || s.id !== e.pointerId) return;
+    s.x = e.clientX; s.y = e.clientY; const dx = s.x - s.ax, dy = s.y - s.ay, d = Math.hypot(dx, dy);
+    if (d > STK.follow) { s.ax = s.x - dx * STK.follow / d; s.ay = s.y - dy * STK.follow / d; } // anchor trails the thumb so reversing is instant
+    apply(); e.preventDefault();
+  }, { passive: false });
+  const up = e => { TC.ptrs.delete(e.pointerId); if (TC.stick && TC.stick.id === e.pointerId) TC.stick = null; apply(); };
   window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
+  window.addEventListener('blur', () => { TC.ptrs.clear(); TC.stick = null; apply(); });
   document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+  document.addEventListener('touchstart', e => { if (e.touches.length > 1) e.preventDefault(); }, { passive: false });
   document.addEventListener('contextmenu', e => e.preventDefault());
-}
-function layoutTouch(portrait, canvasBottom) {
-  const el = document.getElementById('touch'); if (!el) return;
-  el.style.top = '0px';
-  const pb = document.getElementById('btnP'), v = App.view;
-  if (pb && !portrait) { const margin = v.left; if (margin >= 56) { pb.style.left = (v.left + v.w + 8) + 'px'; pb.style.top = (v.top + 6) + 'px'; } else { pb.style.left = (v.left + v.w * 0.74 - 20) + 'px'; pb.style.top = (v.top + 4) + 'px'; } pb.style.right = 'auto'; }
-  else if (pb) { pb.style.left = ''; pb.style.top = ''; pb.style.right = ''; }
-  if (TC) setTimeout(() => TC.recalc(), 0);
 }
 window.addEventListener('load', () => App.boot());
 window.SPQ = { App, DBG, get LEVELS() { return LEVELS; }, Input, SND };
